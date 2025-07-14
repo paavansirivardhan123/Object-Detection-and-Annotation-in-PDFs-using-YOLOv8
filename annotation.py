@@ -1,6 +1,5 @@
 import cv2
-import os
-
+from pathlib import Path
 annotations = []
 drawing = False
 label_input_mode = False
@@ -85,57 +84,60 @@ def annotate_image(image_path):
     cv2.destroyAllWindows()
     return annotations, img
 
-def main():
 
+def process_images(image_dir, label_dir, classes):
     import os 
-    
-    classes = []
+    os.makedirs(label_dir, exist_ok=True)
+    image_paths = list(Path(image_dir).glob("*.jpg"))
 
-    image_folder = "training_data\\images"
-    save_label_folder = "training_data\\labels\\"
-
-
-    if not os.path.exists(save_label_folder):
-        os.makedirs(save_label_folder)
-
-
-    image_paths = [os.path.join(image_folder, fname) for fname in os.listdir(image_folder)]
-
-    for idx, image_path in enumerate(image_paths):
-
-        annotations, img = annotate_image(image_path)
-
+    for image_path in image_paths:
+        annotations, img = annotate_image(str(image_path))  
+        h, w = img.shape[:2] 
         boxes = []
+
         for ann in annotations:
             label = ann["label"]
             box = ann["box"]
             if label not in classes:
                 classes.append(label)
             class_index = classes.index(label)
-            boxes.append((class_index, *box))
 
-        label_save_path = os.path.join(save_label_folder, f"label_{idx+1}.txt")
+            x1, y1, x2, y2 = box
+            x_center = (x1 + x2) / 2 / w
+            y_center = (y1 + y2) / 2 / h
+            width = abs(x2 - x1) / w
+            height = abs(y2 - y1) / h
+            boxes.append((class_index, x_center, y_center, width, height))
+
+        label_save_path = os.path.join(label_dir, f"{image_path.stem}.txt")
 
         with open(label_save_path, "w") as f:
             for box in boxes:
-                f.write(" ".join(map(str, box)) + "\n")
+                class_id, x_center, y_center, width, height = box
+
+                if not (0 <= x_center <= 1 and 0 <= y_center <= 1 and width > 0 and height > 0):
+                    continue
+                
+                f.write(f"{class_id} {x_center:.6f} {y_center:.6f} {width:.6f} {height:.6f}\n")
+
+
+def main():
+    import yaml
+    classes = []
+
+    process_images("training_data/train/images", "training_data/train/labels", classes)
+    process_images("training_data/val/images", "training_data/val/labels", classes)
 
     with open("classes.txt", "w") as f:
         for cls in classes:
             f.write(cls + "\n")
-    
-
-    import os
-    import yaml
 
     data = {
-        'train': "training_data/images",
+        'train': "training_data/train/images",
+        'val'  : "training_data/val/images",
         'nc': len(classes),
         'names': {i: name for i, name in enumerate(classes)}
     }
-    
+
     with open("data.yaml", "w") as f:
         yaml.dump(data, f, sort_keys=False)
-
-
-
