@@ -33,9 +33,20 @@ def annotate_image(image_path):
     annotations = []
     img = cv2.imread(image_path)
     clone = img.copy()
+    
+    screen_w = 1280
+    screen_h = 960
 
-    cv2.namedWindow("Annotator")
-    cv2.resizeWindow("Annotator", 600, 700) 
+    img_h, img_w = img.shape[:2]
+    scale = min(screen_w / img_w, screen_h / img_h, 1.0)
+
+    resized = False
+    if scale < 1.0:
+        img = cv2.resize(img, (int(img_w * scale), int(img_h * scale)))
+        clone = img.copy()
+        resized = True
+
+    cv2.namedWindow("Annotator", cv2.WINDOW_AUTOSIZE)
     cv2.setMouseCallback("Annotator", draw_rectangle)
 
     while True:
@@ -49,7 +60,6 @@ def annotate_image(image_path):
                         cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 255), 2)
 
         cv2.imshow("Annotator", display_img)
-        cv2.resizeWindow("Annotator", 600, 700)
 
         key = cv2.waitKey(1) & 0xFF
 
@@ -68,22 +78,18 @@ def annotate_image(image_path):
 
             elif key == 8: 
                 current_label = current_label[:-1]
-
             elif 32 <= key <= 126: 
                 current_label += chr(key)
+            continue
 
-            continue 
-
-        if key == ord("r"): 
+        if key == ord("r"):
             img = clone.copy()
             annotations = []
-
-        elif key == ord("q"):  
+        elif key == ord("q"):
             break
 
     cv2.destroyAllWindows()
     return annotations, img
-
 
 def process_images(image_dir, label_dir, classes):
     import os 

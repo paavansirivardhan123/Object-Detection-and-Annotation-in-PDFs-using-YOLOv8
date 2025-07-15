@@ -16,7 +16,7 @@ def split_data(pages_numbers,pdf_path):
     pdf = fitz.open(pdf_path)
 
     for i,page in enumerate(pdf):
-        img = page.get_pixmap(dpi = 300)
+        img = page.get_pixmap(matrix = fitz.Matrix(1.5, 1.5))
         test_path = "testing_data"
         train_path = "training_data\\train\\images"
         val_path = "training_data\\val\\images"

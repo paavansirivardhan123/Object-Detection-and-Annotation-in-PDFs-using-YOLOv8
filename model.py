@@ -8,7 +8,7 @@ def load_train_the_model():
 
     model.train(
         data="data.yaml",
-        epochs=2,
+        epochs=500,
         imgsz=640,
         project="trained_model",   
         name="custom_model",       
