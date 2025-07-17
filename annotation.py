@@ -71,7 +71,7 @@ def annotate_image(image_path):
                 }) 
                 cv2.rectangle(img, (box_coords[0], box_coords[1]), (box_coords[2], box_coords[3]), (0, 255, 0), 2)
                 cv2.putText(img, current_label, (box_coords[0], box_coords[1] - 10),
-                            cv2.FONT_HERSHEY_SIMPLEX, 0.8, (0, 255, 0), 2)
+                            cv2.FONT_HERSHEY_SIMPLEX, 0.8, (0, 0, 255), 2)
                 label_input_mode = False
                 box_coords = None
                 current_label = ""

@@ -3,12 +3,12 @@ import cv2
 from pathlib import Path
 import os
 
-def load_train_the_model():
+def load_train_the_model(epoch):
     model = YOLO("yolov8n.pt")
 
     model.train(
         data="data.yaml",
-        epochs=500,
+        epochs=epoch,
         imgsz=640,
         project="trained_model",   
         name="custom_model",       
