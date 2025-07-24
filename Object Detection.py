@@ -32,7 +32,7 @@ def prepare_your_model():
     # 4 GB – epochs 20 to 35
     # 8 GB – epochs 30 to 50
     # 16 GB – epochs > 75
-    epoch = int(input("Enter the no of epochs"))
+    epoch = int(input("How many training approaches do you want to run?"))
 
     # In this function the model training is going to be done considering the labels which you have mentioned
     custom_model = model.load_train_the_model(epoch)
