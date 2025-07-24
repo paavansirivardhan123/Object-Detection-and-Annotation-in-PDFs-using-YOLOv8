@@ -77,7 +77,7 @@ def pretrained_model(custom_model = YOLO("pretrained_model.pt")):
 
 
     # Only filter the files which ends with .jpg
-    for count,img in enumerate(img_path.glob("*.jpg")):
+    for count,img in enumerate(sorted(img_path.glob("*.jpg"), key=lambda x: x.stat().st_mtime)):
         # As we are using the Pathlib library it displays in the formate of Windows() which need to be converted into String so our model can predict 
         results = custom_model.predict(source=str(img) , conf = 0.1,imgsz = 640)
         for result in results:
