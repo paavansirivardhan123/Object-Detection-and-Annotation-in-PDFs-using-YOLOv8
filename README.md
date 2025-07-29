@@ -86,7 +86,7 @@ This project offers a robust end-to-end pipeline for object detection in PDF doc
 3. The system:
 
    * Converts the PDF to images
-   * Applies the pre-trained model in `Object Detection.py` itself
+   * Applies the pre-trained model in `Object_Detection.py` itself
    * Outputs results into the `results/` directory
 
 ---
@@ -98,7 +98,7 @@ project/
 ├── annotation.py            # GUI-based annotation tool (Option 1)
 ├── model.py                 # Model training (Option 1)
 ├── pdf2image.py             # PDF-to-image conversion module (Option 1) & (Option 2)
-├── object_detection.py      # Core detection pipeline (YOLO inference)
+├── Object_Detection.py      # Core detection pipeline (YOLO inference)
 ├── pretrained_model.pt      # Pre-trained model weights (used in Option 2)
 ├── requirements.txt         # Python dependencies
 ├── pdf1.pdf                 # Input PDF files need to be uploaded in the pdf's folder
@@ -134,8 +134,8 @@ project/
 
 | Mode        | Tools Required                              | PDF Handling                                       | Manual Setup                                                          |
 | ----------- | ------------------------------------------- | -------------------------------------------------- | --------------------------------------------------------------------- |
-| Train Model | `annotation.py`, `model.py`, `pdf2image.py`,`Object Detection.py` | Manual: User must place the pdf's in the `pdf's folder` | Yes: must also manually place a testing PDF in `testing_data/` if not provided initially |
-| Pre-trained | `pretrained_model.pt`, `pdf2image.py`,`Object Detection.py`                  | No need of any training pdf's | Only testing PDF must be placed in `testing_data/` folder manually    |
+| Train Model | `annotation.py`, `model.py`, `pdf2image.py`,`Object_Detection.py` | Manual: User must place the pdf's in the `pdf's folder` | Yes: must also manually place a testing PDF in `testing_data/` if not provided initially |
+| Pre-trained | `pretrained_model.pt`, `pdf2image.py`,`Object_Detection.py`                  | No need of any training pdf's | Only testing PDF must be placed in `testing_data/` folder manually    |
 
 ---
 
@@ -159,7 +159,7 @@ project/
 git clone https://github.com/paavansirivardhan123/Object_Identification_use_case_using_YOLO.git
 cd Object_Identification_use_case_using_YOLO
 pip install -r requirements.txt
-python Object Detection.py
+python Object_Detection.py
 ```
 
 --- 
