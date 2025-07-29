@@ -7,7 +7,7 @@ This project offers a robust end-to-end pipeline for object detection in PDF doc
 ## 🔍 Key Capabilities
 
 * 📤 **Smart PDF Handling**
-  Seamlessly uploads and auto-converts multipage PDFs to annotated image datasets.
+  Seamlessly uploads and auto-converts multiple PDFs to annotated image datasets.
 
 * 🎨 **GUI-based Annotation Tool**
   Built using OpenCV, enabling real-time bounding box drawing, label assignment, and dynamic label management.
@@ -32,7 +32,7 @@ This project offers a robust end-to-end pipeline for object detection in PDF doc
 
 #### 1. 📁 PDF Input & Dataset Structuring
 
-* User uploads one or more PDF documents.
+* User uploads one or more PDF documents in pdf's folder. 
 * Automatically splits pages into:
 
   * `train/`
@@ -101,7 +101,7 @@ project/
 ├── object_detection.py      # Core detection pipeline (YOLO inference)
 ├── pretrained_model.pt      # Pre-trained model weights (used in Option 2)
 ├── requirements.txt         # Python dependencies
-├── pdf1.pdf                 # Input PDF files
+├── pdf1.pdf                 # Input PDF files need to be uploaded in the pdf's folder
 ├── pdf2.pdf
 ├── pdf3.pdf
 ├── pdf4.pdf
@@ -134,8 +134,8 @@ project/
 
 | Mode        | Tools Required                              | PDF Handling                                       | Manual Setup                                                          |
 | ----------- | ------------------------------------------- | -------------------------------------------------- | --------------------------------------------------------------------- |
-| Train Model | `annotation.py`, `model.py`, `pdf2image.py`,`Object Detection.py` | Manual: user must define PDF names inside the code | Yes: must also manually place a testing PDF in `testing_data/` if not provided initially |
-| Pre-trained | `pretrained_model.pt`, `pdf2image.py`,`Object Detection.py`                  | Auto: PDFs are processed without manual name entry | Only testing PDF must be placed in `testing_data/` folder manually    |
+| Train Model | `annotation.py`, `model.py`, `pdf2image.py`,`Object Detection.py` | Manual: User must place the pdf's in the `pdf's folder` | Yes: must also manually place a testing PDF in `testing_data/` if not provided initially |
+| Pre-trained | `pretrained_model.pt`, `pdf2image.py`,`Object Detection.py`                  | No need of any training pdf's | Only testing PDF must be placed in `testing_data/` folder manually    |
 
 ---
 
@@ -148,8 +148,24 @@ project/
 
 ---
 
+## 🚀 How to Run
+
+1. Clone the repository  
+2. Install dependencies
+3. Place your pdf's in a proper way
+4. Run the script
+
+```bash
+git clone https://github.com/paavansirivardhan123/Object_Identification_use_case_using_YOLO.git
+cd Object_Identification_use_case_using_YOLO
+pip install -r requirements.txt
+python Object Detection.py
+```
+
+--- 
+
 ## 👤 Author
 
-**Name:** Paavan Siri Vardhan Narava
-**Location:** India
+**Name:** Paavan Siri Vardhan Narava  
+**Location:** India  
 **Contact:** Contributions and collaborations are welcome! Feel free to reach out or credit the work.
